@@ -9,15 +9,11 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
-        #map { height: 500px; }
     </style>
      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
-      <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
+    
 
     
     
@@ -28,16 +24,62 @@
 
     <h1>My Website</h1>
     <p>Should be a map here.</p>
-    <div id="map"></div>
+    <div id="map" style = "width:800px; height:600px"></div>
     <script></script>
     
-    <script >
-        var map = L.map('map').setView([37.65, -121.91], 13);
+    
+    <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=-121.76210451346259%2C37.58419836269764%2C-121.70107889395578%2C37.61418790679076&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=15/37.59919/-121.73159">View Larger Map</a></small>
+    
+    
+    <script 
+        # Adds
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin="">
+    </script>
+    <script>
+        const test_langlot = [37.7, -122];
+        const test_zoom = 10;
+        var map = L.map('map').setView(test_langlot, test_zoom);
         
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
+
+        let locations = [
+            {
+                "id": 1,
+                "lat": 37.704707,
+                "long": -122.153863,
+                "title": "Davis Street Community Center",
+                "address": "3081 Teagarden St., San Leandro, CA 94577"
+            },
+        ]
+        // locations = jso
+        
+        locations.forEach(setMarker);
+
+         
+        fetch('./data.json')
+            .then((response) => response.json())
+            .then((json) => console.log(json));
+            
+        function setMarker(element) {
+            var popup = L.popup('<div class="card"><h3>'+element.title+'</h3></div><div>'+element.address+'</div>');
+            new L.Marker([element.lat, element.long])
+            .addTo(map)
+            .bindPopup(popup)
+
+            // On click display the popup
+            .on("click", onClick())
+        }
+
+        // Opens a popup for the event target which is an element.
+        function onClick() {
+            event.target.openPopup();
+        }
+
     </script>
     
 </body>
