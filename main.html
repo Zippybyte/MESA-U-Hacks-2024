@@ -32,9 +32,9 @@
         crossorigin="">
     </script>
     <script>
-        const test_langlot = [37.7, -122];
-        const test_zoom = 10;
-        var map = L.map('map').setView(test_langlot, test_zoom);
+        const coordinates = [37.7, -122.3];
+        const zoom = 10;
+        var map = L.map('map').setView(coordinates, zoom);
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -51,17 +51,45 @@
             },
             {
                 "id": 2,
-                "lat": 37.708707,
-                "long": -122.453863,
-                "title": "Davis Street Community Center",
-                "address": "3081 Teagarden St., San Leandro, CA 94577"
+                "lat": 37.633780,
+                "long": -122.079810,
+                "title": "South Hayward Parish",
+                "address": "27287 Patrick Ave., Hayward, CA 94544"
             },
             {
                 "id": 3,
-                "lat": 37.708707,
-                "long": -122.163863,
-                "title": "Davis Street Community Center",
-                "address": "3081 Teagarden St., San Leandro, CA 94577"
+                "lat": 37.809500,
+                "long": -122.274320,
+                "title": "Greater St. Paul Church",
+                "address": "1827 Martin Luther King Jr. Wy, Oakland, CA 94612"
+            },
+            {
+                "id": 4,
+                "lat": 37.818700,
+                "long": -122.264190,
+                "title": "W.O.R.L.D.",
+                "address": "389 30th Street, Oakland, CA 94609"
+            },
+            {
+                "id": 5,
+                "lat": 37.818190,
+                "long": -122.268150,
+                "title": "St. Augustine's Episcopal Church",
+                "address": "1827 Martin Luther King Jr. Wy, Oakland, CA 94612"
+            },
+            {
+                "id": 6,
+                "lat": 37.7906711,
+                "long": -122.2346599,
+                "title": "Israelite Missionary Baptist Church",
+                "address": "2043 E 21st St., Oakland, CA 94606"
+            },
+            {
+                "id": 7,
+                "lat": 37.6000861,
+                "long": -122.0189313,
+                "title": "Centro de Servicios Resource Center",
+                "address": "33750 6th Street, Union City, CA 94587"
             }
         ]
         locations.forEach(console.log)
@@ -70,51 +98,11 @@
             console.log(locations[i] + " ___ " + i);
         }
         
-        // fetch('./data.json')
-        //     .then((response) => response.json())
-        //     .then((json) => console.log(json));
-
-        // locations.forEach(setMarker);
-        /*for ( let i = 0 ; i< locations.length ; i++){
-            new L.Marker([element.lat,element.long]).addTo(map)
-            .bindPopup('<div class="card"><h3>'+element.title+'</h3></div><div>'+element.address+'</div>')
-            // On click display the popup
-            .on("click", onClick())
-        }
-        for ( let i = 0 ; i < locations.length ; i++){
-            console.log(locations[i] + " ___ " + i);
-            new L.Marker([locations[i].lat, locations[i].long])
-                .addTo(map)
-                .bindPopup('<div class="card"><h3>'+locations[i].title+'</h3></div><div>'+locations[i].address+'</div>')
-                // On click display the popup
-                .on("click", onClick());
-        }*/
-
         locations.forEach(element => {
             new L.Marker([element.lat,element.long]).addTo(map)
             .on("click", event =>{
                 event.target.bindPopup('<div class="card"><h3>'+element.title+'</h3></div><div>'+element.address+'</div>').openPopup()})
         });
-        
-
-        
-        /*
-        function setMarker(element) {
-            var popup = L.popup('<div class="card"><h3>'+element.title+'</h3></div><div>'+element.address+'</div>');
-            
-            new L.Marker([element.lat, element.long])
-            .addTo(map)
-            .bindPopup(popup)
-            // On click display the popup
-            .on("click", onClick());
-        }
-        */
-
-        // Opens a popup for the event target which is an element.
-        function onClick(event) {
-            
-            ;
-        }
 
     </script>
 </body>
