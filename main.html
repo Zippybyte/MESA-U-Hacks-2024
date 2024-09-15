@@ -13,23 +13,17 @@
      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
-    
-
-    
-    
-
 </head>
 
 <body>
 
     <h1>My Website</h1>
     <p>Should be a map here.</p>
-    <div id="map" style = "width:800px; height:600px"></div>
-    <script></script>
-    
-    
-    <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=-121.76210451346259%2C37.58419836269764%2C-121.70107889395578%2C37.61418790679076&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=15/37.59919/-121.73159">View Larger Map</a></small>
-    
+    <div style="width:100%; display:grid">
+        <div style="width:80%; justify-self: right">
+            <div id="map" style = "justify-self:right ;width:800px; height:600px"></div>  
+        </div>  
+    </div>
     
     <script 
         # Adds
@@ -55,33 +49,74 @@
                 "title": "Davis Street Community Center",
                 "address": "3081 Teagarden St., San Leandro, CA 94577"
             },
+            {
+                "id": 2,
+                "lat": 37.708707,
+                "long": -122.453863,
+                "title": "Davis Street Community Center",
+                "address": "3081 Teagarden St., San Leandro, CA 94577"
+            },
+            {
+                "id": 3,
+                "lat": 37.708707,
+                "long": -122.163863,
+                "title": "Davis Street Community Center",
+                "address": "3081 Teagarden St., San Leandro, CA 94577"
+            }
         ]
-        // locations = jso
+        locations.forEach(console.log)
+        console.log(locations[1]);
+        for ( let i = 0 ; i < locations.length ; i++){
+            console.log(locations[i] + " ___ " + i);
+        }
         
-        locations.forEach(setMarker);
+        // fetch('./data.json')
+        //     .then((response) => response.json())
+        //     .then((json) => console.log(json));
 
-         
-        fetch('./data.json')
-            .then((response) => response.json())
-            .then((json) => console.log(json));
-            
-        function setMarker(element) {
-            var popup = L.popup('<div class="card"><h3>'+element.title+'</h3></div><div>'+element.address+'</div>');
-            new L.Marker([element.lat, element.long])
-            .addTo(map)
-            .bindPopup(popup)
-
+        // locations.forEach(setMarker);
+        /*for ( let i = 0 ; i< locations.length ; i++){
+            new L.Marker([element.lat,element.long]).addTo(map)
+            .bindPopup('<div class="card"><h3>'+element.title+'</h3></div><div>'+element.address+'</div>')
             // On click display the popup
             .on("click", onClick())
         }
+        for ( let i = 0 ; i < locations.length ; i++){
+            console.log(locations[i] + " ___ " + i);
+            new L.Marker([locations[i].lat, locations[i].long])
+                .addTo(map)
+                .bindPopup('<div class="card"><h3>'+locations[i].title+'</h3></div><div>'+locations[i].address+'</div>')
+                // On click display the popup
+                .on("click", onClick());
+        }*/
+
+        locations.forEach(element => {
+            new L.Marker([element.lat,element.long]).addTo(map)
+            .on("click", event =>{
+                event.target.bindPopup('<div class="card"><h3>'+element.title+'</h3></div><div>'+element.address+'</div>').openPopup()})
+        });
+        
+
+        
+        /*
+        function setMarker(element) {
+            var popup = L.popup('<div class="card"><h3>'+element.title+'</h3></div><div>'+element.address+'</div>');
+            
+            new L.Marker([element.lat, element.long])
+            .addTo(map)
+            .bindPopup(popup)
+            // On click display the popup
+            .on("click", onClick());
+        }
+        */
 
         // Opens a popup for the event target which is an element.
-        function onClick() {
-            event.target.openPopup();
+        function onClick(event) {
+            
+            ;
         }
 
     </script>
-    
 </body>
 
 </html>
